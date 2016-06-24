@@ -1,0 +1,19 @@
+{
+  "name": "bierapp-api",
+  "version": "1.0.0",
+  "description": "The backend of the bierapp application.",
+  "main": "server.js",
+  "author": "Henk",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "method-override": "^2.1.3",
+    "mongoose": "^4.4.12",
+    "morgan": "^1.1.1",
+    "cors": "^2.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^1.8.10",
+    "typings": "^1.3.0"
+  }
+}
