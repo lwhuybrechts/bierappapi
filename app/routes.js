@@ -1,10 +1,20 @@
 var Beer = require('./models/beer');
+var Checkin = require('./models/checkin');
 function getBeers(res) {
     Beer.find(function (err, beers) {
         if (err) {
             res.send(err);
         }
         res.json(beers);
+    });
+}
+;
+function getCheckins(res) {
+    Checkin.find(function (err, checkins) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(checkins);
     });
 }
 ;
@@ -31,6 +41,20 @@ module.exports = function (app) {
             if (err)
                 res.send(err);
             getBeers(res);
+        });
+    });
+    app.get('/api/checkins', function (req, res) {
+        getCheckins(res);
+    });
+    app.post('/api/checkins', function (req, res) {
+        Checkin.create({
+            beerId: req.body.beerId,
+            comment: req.body.comment,
+            rating: req.body.rating
+        }, function (err, checkin) {
+            if (err)
+                res.send(err);
+            getCheckins(res);
         });
     });
     app.get('*', function (req, res) {

@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 var checkinSchema = mongoose.Schema({
     beerId: String,
     comment: String,
@@ -7,5 +6,5 @@ var checkinSchema = mongoose.Schema({
 }, {
     timestamps: true
 });
-
 module.exports = mongoose.model('Checkin', checkinSchema);
+//# sourceMappingURL=checkin.js.map

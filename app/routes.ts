@@ -1,4 +1,5 @@
 var Beer = require('./models/beer');
+var Checkin = require('./models/checkin');
 
 function getBeers(res) {
     Beer.find(function (err, beers) {
@@ -8,6 +9,17 @@ function getBeers(res) {
         }
 
         res.json(beers); // return all beers in JSON format
+    });
+};
+
+function getCheckins(res) {
+    Checkin.find(function(err, checkins) {
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(checkins); // return all checkins in JSON format
     });
 };
 
@@ -45,6 +57,28 @@ module.exports = function (app) {
                 res.send(err);
 
             getBeers(res);
+        });
+    });
+
+    // get all checkins
+    app.get('/api/checkins', function (req, res) {
+        // use mongoose to get all checkins in the database
+        getCheckins(res);
+    });
+
+    // create checkin and send back all checkins after creation
+    app.post('/api/checkins', function (req, res) {
+        // create a checkin, information comes from AJAX request from Angular
+        Checkin.create({
+            beerId: req.body.beerId,
+            comment: req.body.comment,
+            rating: req.body.rating
+        }, function (err, checkin) {
+            if (err)
+                res.send(err);
+
+            // get and return all the checkins after you create another
+            getCheckins(res);
         });
     });
 
